@@ -1,6 +1,7 @@
 from typing import List
 import random
 import string
+import sys
 
 
 def generate_grid():
@@ -24,7 +25,7 @@ def get_words(f: str, letters: List[str]) -> List[str]:
     """
     Reads the file f. Checks the words with rules and returns a list of words.
     """
-    pass
+
 
 
 
@@ -35,7 +36,16 @@ def get_user_words() -> List[str]:
     for Windows.
     Note: the user presses the enter key after entering each word.
     """
-    pass
+    users_list_of_words = []
+    while True:
+        word = input('Введіть слово: ')
+        if word == '':
+            break
+        if word not in users_list_of_words:
+            users_list_of_words.append(word)
+        else:
+            continue
+    return users_list_of_words
 
 
 def get_pure_user_words(user_words: List[str], letters: List[str], words_from_dict: List[str]) -> List[str]:
