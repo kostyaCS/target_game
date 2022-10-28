@@ -1,7 +1,7 @@
+from math import isclose
 from typing import List
 import random
 import string
-import sys
 
 
 def generate_grid():
@@ -14,9 +14,7 @@ def generate_grid():
     for _ in range(3):
         current = []
         while len(current) != 3:
-            choice = random.choice(alphabet)
-            current.append(choice)
-            alphabet.remove(choice)
+            current.append(random.choice(alphabet))
         grid.append(current)
     return grid
 
@@ -24,8 +22,24 @@ def generate_grid():
 def get_words(f: str, letters: List[str]) -> List[str]:
     """
     Reads the file f. Checks the words with rules and returns a list of words.
+    >>> get_words('/Users/kostyantin/UCUpython/target_game/en.txt', ['w', 'u', 'm', 'r', 'o', 'v', 'k', 'i', 'f'])
+    ['fork', 'form', 'forum', 'four', 'fowk', 'from', 'frow', 'irok', 'komi', 'kori', 'miro', 'moki', 'ovum', 'work', 'worm', 'wouf']
     """
-
+    central_letter = letters[4]
+    list_of_all_words = []
+    list_of_suited_words = []
+    with open(f, 'r', encoding='utf-8') as file_with_words:
+        for line in file_with_words:
+            list_of_all_words.append(line.strip().lower())
+    for word in list_of_all_words:
+        if len(word) > 3 and central_letter in word:
+            for letter in word:
+                if not letter in letters or word.count(letter) > letters.count(letter):
+                    break
+            else:
+                if word not in list_of_suited_words:
+                    list_of_suited_words.append(word)
+    return list_of_suited_words
 
 
 
